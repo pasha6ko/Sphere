@@ -1,0 +1,61 @@
+{
+  "accounts": [
+    {
+      "id" : 1,
+      "nickname": "pasha6ko",
+      "balance": 2323.54,
+      "books": [
+        {
+          "book": {
+            "id": 0,
+            "author": "Steve Mcconnell",
+            "name": "Code Complete",
+            "price": 1000,
+            "amount": 1
+          },
+
+          "book": {
+            "id": 0,
+            "author": "Steve Mcconnell",
+            "name": "Code Complete",
+            "price": 1000,
+            "amount": 1
+          },
+
+          "book": {
+            "id": 0,
+            "author": "Steve Mcconnell",
+            "name": "Code Complete",
+            "price": 1000,
+            "amount": 1
+          }
+        }
+      ]
+    }
+
+]
+  ,
+  "books": [
+    {
+      "id": 0,
+      "author": "Steve Mcconnell",
+      "name": "Code Complete",
+      "price": 1000,
+      "amount": 7
+    },
+    {
+      "id": 1,
+      "author": "Bruce Eckel",
+      "name": " Thinking in Java",
+      "price": 1500,
+      "amount": 15
+    },
+    {
+      "id": 2,
+      "author": "Joshua Bloch",
+      "name": "Effective Java",
+      "price": 2500,
+      "amount": 10
+    }
+  ]
+}
