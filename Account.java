@@ -14,7 +14,6 @@ public class Account {
     }
     public JSONObject GetJsonData()
     {
-        System.out.println("Account");
         JSONObject JSBook = new JSONObject();
         JSBook.put("id" , id);
         JSBook.put("nickname" , nickname);

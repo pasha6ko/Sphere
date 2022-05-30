@@ -4,22 +4,40 @@ import com.sun.net.httpserver.HttpServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
+import org.xml.sax.SAXException;
 
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import javax.xml.xpath.*;
 
 public class App {
 
-    private static final Logger logger = LogManager.getLogger(App.class);
-        public static void main(String[] arg) throws IOException,ParseException{
+        public static void main(String[] arg) throws IOException,ParseException, ParserConfigurationException, XPathExpressionException , SAXException, TransformerConfigurationException, TransformerException {
 
-        logger.info("Server Start");
-        String filename = arg[0];
+
+        String filename;
+        try{
+             filename= arg[0]; //data.json
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+                filename = "data.json";
+            }
+        String Logfilename;
+            try{
+                Logfilename= arg[1];
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                Logfilename = "log4j2.log";
+            }
+            
         JsonController json = new JsonController(filename);
 
         int port = 8080;
@@ -36,11 +54,8 @@ public class App {
         server.createContext("/account",new ConnectToAccount(json));
 
         server.setExecutor(null);
-        System.out.println("Starting");
-        
         server.start();
-        System.out.println(server.getAddress());
-        System.out.println(server);
+
 
     }
 }
@@ -56,7 +71,8 @@ class Market implements HttpHandler{
 
         response = json.GetMarket().toJSONString();
 
-        System.out.println(response);
+
+
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
@@ -75,7 +91,7 @@ class ConnectToAccount implements HttpHandler{
     public void handle(HttpExchange t) throws IOException{
         String response = json.GetAccounts().toString();
 
-        System.out.println(response);
+
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
@@ -100,12 +116,12 @@ class Deal implements HttpHandler {
        try {
            if(json.CheckCountOfBooks(id,count))
            {
-               System.out.println("Got it");
+
                t.sendResponseHeaders(200,0);
            }
            else
            {
-               System.out.println("Did not find");
+
                t.sendResponseHeaders(400, 0);
            }
        } catch (ParseException e) {

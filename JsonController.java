@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonController {
-    String filename;
-    List<Book> books;
+    String filename;    List<Book> books;
     List<Account> accounts;
 
     public JsonController(String filename) throws IOException,ParseException{
@@ -60,7 +59,7 @@ public class JsonController {
             }
 
         }
-        System.out.println(MarketArray.toString());
+
         JSONObject products = new JSONObject();
         products.put("products",MarketArray);
         return MarketArray;
@@ -88,7 +87,7 @@ public class JsonController {
                 return true;
             }
         }
-        System.out.println("Did not find");
+
         return false;
     }
 

@@ -5,7 +5,6 @@ import org.json.simple.*;
 public class Book {
     public Book( JSONObject obj)
     {
-        System.out.println(obj.toString());
         this.id = Integer.parseInt( obj.get("id").toString());
         this.name = (String) obj.get("name");
         this.author = (String)obj.get("author");
