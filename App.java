@@ -18,19 +18,19 @@ import javax.xml.transform.TransformerException;
 
 import javax.xml.xpath.*;
 
-public class App {
+public class App { // Основной класс
 
         public static void main(String[] arg) throws IOException,ParseException, ParserConfigurationException, XPathExpressionException , SAXException, TransformerConfigurationException, TransformerException {
 
 
-        String filename;
+        String filename; //путь к файлу для считывания
         try{
              filename= arg[0]; //data.json
         }
         catch(ArrayIndexOutOfBoundsException e){
                 filename = "data.json";
             }
-        String Logfilename;
+        String Logfilename; //путь к файлу логирования
             try{
                 Logfilename= arg[1];
             }
@@ -43,24 +43,24 @@ public class App {
         int port = 8080;
         HttpServer server = null;
         try {
-            server = HttpServer.create(new InetSocketAddress(port),0);
+            server = HttpServer.create(new InetSocketAddress(port),0); // создание сервера
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
 
-        server.createContext("/market",new Market(json));
-        server.createContext("/market/deal", new Deal(json));
-        server.createContext("/account",new ConnectToAccount(json));
+        server.createContext("/market",new Market(json)); //страница магазина
+        server.createContext("/market/deal", new Deal(json)); //страница сделки
+        server.createContext("/account",new ConnectToAccount(json)); //страница аккаунтовв
 
         server.setExecutor(null);
-        server.start();
+        server.start(); // запуск сервера
 
 
     }
 }
 
-class Market implements HttpHandler{
+class Market implements HttpHandler{ //Возврат данных магазина
     JsonController json;
     public Market(JsonController json)
     {
@@ -69,19 +69,19 @@ class Market implements HttpHandler{
     public void handle(HttpExchange t) throws IOException{
         String response;
 
-        response = json.GetMarket().toJSONString();
+        response = json.GetMarket().toJSONString(); // получение всех книг
 
 
 
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
+        os.write(response.getBytes());// отправление данных
         os.close();
     }
 
 }
 
-class ConnectToAccount implements HttpHandler{
+class ConnectToAccount implements HttpHandler{ //Возврат данных о аккаунтах
 
     JsonController json;
     public ConnectToAccount(JsonController json)
@@ -94,7 +94,7 @@ class ConnectToAccount implements HttpHandler{
 
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
+        os.write(response.getBytes());// отправление данных
         os.close();
     }
 

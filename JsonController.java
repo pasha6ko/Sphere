@@ -7,10 +7,11 @@ import javax.imageio.IIOException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+//Класс храняший данные и считывающий JSON файл
 public class JsonController {
-    String filename;    List<Book> books;
-    List<Account> accounts;
+    String filename; // Путь к файлу
+    List<Book> books; // Все книги из файла
+    List<Account> accounts; // все аккаунты
 
     public JsonController(String filename) throws IOException,ParseException{
 
@@ -18,7 +19,7 @@ public class JsonController {
         this.books = SetMarket();
         this.accounts = SetAccount();
     }
-    public JSONObject GetMarket()
+    public JSONObject GetMarket() //Получает все книги из класса
     {
         JSONArray AllBooks = new JSONArray();
         for(Book i : books)
@@ -29,7 +30,7 @@ public class JsonController {
         res.put("products",AllBooks);
         return res;
     }
-    public JSONObject GetAccounts()
+    public JSONObject GetAccounts()//Получение всех аккаунтов из класса
     {
         JSONArray AllAccounts = new JSONArray();
         for(Account i : accounts)
@@ -40,13 +41,13 @@ public class JsonController {
         res.put("accounts",AllAccounts);
         return res;
     }
-    public JSONObject GetJsonFile() throws FileNotFoundException ,ParseException,IOException{
+    public JSONObject GetJsonFile() throws FileNotFoundException ,ParseException,IOException{ // Возвращает все данные из файла
         JSONParser parser = new JSONParser();
         FileReader reader = new FileReader(new File(filename));
         JSONObject data = (JSONObject) parser.parse(reader);
         return data;
     }
-    public List<Book> SetMarket () throws ParseException, IOException
+    public List<Book> SetMarket () throws ParseException, IOException //Преобразовывает обектов из файлв в книги
     {
         JSONArray ListOfBooks = (JSONArray) GetJsonFile().get("books");
         List<Book> MarketArray = new ArrayList<>();
@@ -64,7 +65,7 @@ public class JsonController {
         products.put("products",MarketArray);
         return MarketArray;
     }
-    public List<Account> SetAccount() throws ParseException, IOException
+    public List<Account> SetAccount() throws ParseException, IOException //Преобразовывает обектов из файлв в книги
     {
         JSONArray ListOfAccounts = (JSONArray) GetJsonFile().get("accounts");
         List<Account> CheckedAccounts = new ArrayList<>();
@@ -77,7 +78,7 @@ public class JsonController {
         accounts.put("accounts",CheckedAccounts);
         return CheckedAccounts;
     }
-    public Boolean CheckCountOfBooks(Integer id,Integer count) throws ParseException, IOException
+    public Boolean CheckCountOfBooks(Integer id,Integer count) throws ParseException, IOException //проверяет количество книг
     {
 
         for (Book i: books)

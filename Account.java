@@ -3,7 +3,7 @@ import org.json.simple.JSONObject;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-public class Account {
+public class Account { //Класс хранящий в себе все данные об одном аккаунте
     public  Account(JSONObject accountdata)
     {
         this.id = Integer.parseInt(accountdata.get("id").toString());
@@ -12,7 +12,7 @@ public class Account {
         this.have = (JSONArray) accountdata.get("books");
 
     }
-    public JSONObject GetJsonData()
+    public JSONObject GetJsonData() //Возвращает все данные в виде json обекта
     {
         JSONObject JSBook = new JSONObject();
         JSBook.put("id" , id);

@@ -2,7 +2,7 @@
 import org.json.simple.*;
 
 
-public class Book {
+public class Book { // Хранит в себе все данные об ожной книге
     public Book( JSONObject obj)
     {
         this.id = Integer.parseInt( obj.get("id").toString());
@@ -11,7 +11,7 @@ public class Book {
         this.price = Float.parseFloat(obj.get("price").toString());
         this.amount =  Integer.parseInt( obj.get("amount").toString());
     }
-    public JSONObject GetJsonData()
+    public JSONObject GetJsonData() //Возвращает все данные в виде json обекта
     {
         JSONObject JSBook = new JSONObject();
         JSBook.put("id" , id);
